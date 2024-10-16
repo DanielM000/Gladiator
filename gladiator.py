@@ -19,19 +19,23 @@ while strid == True:
     if spelaren_attack == "näve":
         print(f"{spelaren} slår {motståndaren}.")
         motståndaren_hp -= 2
-    if spelaren_attack == "spark":
+    elif spelaren_attack == "spark":
         print(f"{spelaren} sparkar {motståndaren}.")
         motståndaren_hp -= 3
+    else:
+        print(f"{spelaren} missar {motståndaren}.")
     if motståndaren_attack == "näve":
         print(f"{motståndaren} slår {spelaren}.")
         spelaren_hp -= 2
-    if motståndaren_attack == "spark":
+    elif motståndaren_attack == "spark":
         print(f"{motståndaren} sparkar {spelaren}")
         spelaren_hp -= 3
-    if spelaren_hp <= 0:
+    else:
+        print(f"{motståndaren} missar {spelaren}")
+    if spelaren_hp <= 0 and motståndaren_hp > 0:
         print(f"{motståndaren} besegrar {spelaren}!")
         strid = False
-    elif motståndaren_hp <= 0:
+    elif motståndaren_hp <= 0 and spelaren_hp > 0:
         print(f"{spelaren} besegrar {motståndaren}!")
         strid = False
     elif spelaren_hp <= 0 and motståndaren_hp <= 0:
