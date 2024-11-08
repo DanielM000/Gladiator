@@ -7,7 +7,7 @@ def slow_print(text):
     print()
 
 slow_print("Välkommen till Colosseum! Du är en gladiator som ska strida en motståndare tills en dödas.")
-slow_print("Vad är ditt namn ung krigare? ")
+slow_print("Vad är ditt namn unge krigare? ")
 spelaren = input()
 motståndarna = ["Spartacus", "Flamma", "Priscus", "Spiculus", "Tetraites", "Commodus", "Marcus", "Aurelius", "Decimus", "Gaius", "Maximus", "Verus", "Crixus", "Carpophorus", "Antonius", "Augustus"]
 motståndaren = random.choice(motståndarna)
@@ -16,6 +16,8 @@ spelaren_hp = 20
 motståndaren_hp = 20
 spelaren_sköld = 3
 motståndaren_sköld = 3
+spelaren_sköld_notis = 1
+motståndaren_sköld_notis = 1
 runda = 1
 def visa_hp():
     slow_print(f"{spelaren} har just nu {spelaren_hp} hälsopoäng kvar.")
@@ -30,96 +32,122 @@ while strid == True:
     visa_hp()
     spelaren_chans = random.randint(1,100)
     motståndaren_chans = random.randint(1,100)
-    slow_print("Vill du attackera med din näve (80% chans för 2 skada) eller med din spark (65% chans för 3 skada) eller med ditt svärd (50% chans för 5 skada) eller skydda dig själv med din sköld (kan gå sönder efter 3 svärdsattacker)?")
+    print("Vill du attackera med din näve (80% chans för 2 skada)\n eller med din spark (65% chans för 3 skada)\n eller med ditt svärd (50% chans för 5 skada)\n eller skydda dig själv med din sköld (går sönder efter 3 svärdsattacker, om motståndaren missar så slår du honom med 1 skada)?")
     spelaren_attack = input()
     motståndaren_attack = random.choice(attacker)
-    if spelaren_attack == "näve" and spelaren_chans <= 80 and spelaren_hp > 0 and not motståndaren_attack == "sköld":
+    if spelaren_attack == "näve" and spelaren_chans <= 80 and spelaren_hp > 0 and not motståndaren_attack == "sköld" or motståndaren_attack == "sköld" and motståndaren_sköld <= 0:
         slow_print(f"{spelaren} slår mot {motståndaren}...")
         slow_print("Och träffar!")
         motståndaren_hp -= 2
-    elif spelaren_attack == "näve" and spelaren_chans > 80 and spelaren_hp > 0 and not motståndaren_attack == "sköld":
+    elif spelaren_attack == "näve" and spelaren_chans > 80 and spelaren_hp > 0 and not motståndaren_attack == "sköld" or motståndaren_attack == "sköld" and motståndaren_sköld <= 0:
         slow_print(f"{spelaren} slår mot {motståndaren}...")
         slow_print("Och missar!")
-    elif spelaren_attack == "näve" and spelaren_chans <= 80 and spelaren_hp > 0 and motståndaren_attack == "sköld":
+    elif spelaren_attack == "näve" and spelaren_chans <= 80 and spelaren_hp > 0 and motståndaren_attack == "sköld" and motståndaren_sköld > 0:
         slow_print(f"{spelaren} slår mot {motståndaren}...")
         slow_print("Och träffar men den blir blockerad!")
-    elif spelaren_attack == "näve" and spelaren_chans > 80 and spelaren_hp > 0 and motståndaren_attack == "sköld":
+    elif spelaren_attack == "näve" and spelaren_chans > 80 and spelaren_hp > 0 and motståndaren_attack == "sköld" and motståndaren_sköld > 0:
         slow_print(f"{spelaren} slår mot {motståndaren}...")
         slow_print("Och missar!")
-    elif spelaren_attack == "spark" and spelaren_chans <= 65 and spelaren_hp > 0 and not motståndaren_attack == "sköld":
+        slow_print(f"{motståndaren} slår {spelaren} med skölden!")
+        spelaren_hp -= 1
+    elif spelaren_attack == "spark" and spelaren_chans <= 65 and spelaren_hp > 0 and not motståndaren_attack == "sköld" or motståndaren_attack == "sköld" and motståndaren_sköld <= 0:
         slow_print(f"{spelaren} sparkar mot {motståndaren}...")
         slow_print("Och träffar!")
         motståndaren_hp -= 3
-    elif spelaren_attack == "spark" and spelaren_chans > 65 and spelaren_hp > 0 and not motståndaren_attack == "sköld":
+    elif spelaren_attack == "spark" and spelaren_chans > 65 and spelaren_hp > 0 and not motståndaren_attack == "sköld" or motståndaren_attack == "sköld" and motståndaren_sköld <= 0:
         slow_print(f"{spelaren} sparkar mot {motståndaren}...")
         slow_print("Och missar!")
-    elif spelaren_attack == "spark" and spelaren_chans <= 65 and spelaren_hp > 0 and motståndaren_attack == "sköld":
+    elif spelaren_attack == "spark" and spelaren_chans <= 65 and spelaren_hp > 0 and motståndaren_attack == "sköld" and motståndaren_sköld > 0:
         slow_print(f"{spelaren} sparkar mot {motståndaren}...")
         slow_print("Och träffar men den blir blockerad!")
-    elif spelaren_attack == "spark" and spelaren_chans > 65 and spelaren_hp > 0 and motståndaren_attack == "sköld":
+    elif spelaren_attack == "spark" and spelaren_chans > 65 and spelaren_hp > 0 and motståndaren_attack == "sköld" and motståndaren_sköld > 0:
         slow_print(f"{spelaren} sparkar mot {motståndaren}...")
         slow_print("Och missar!")
-    elif spelaren_attack == "svärd" and spelaren_chans <= 50 and spelaren_hp > 0 and not motståndaren_attack == "sköld":
+        slow_print(f"{motståndaren} slår {spelaren} med skölden!")
+        spelaren_hp -= 1
+    elif spelaren_attack == "svärd" and spelaren_chans <= 50 and spelaren_hp > 0 and not motståndaren_attack == "sköld" or motståndaren_attack == "sköld" and motståndaren_sköld <= 0:
         slow_print(f"{spelaren} svänger sitt svärd mot {motståndaren}...")
         slow_print("Och träffar!")
         motståndaren_hp -= 5
-    elif spelaren_attack == "svärd" and spelaren_chans > 50 and spelaren_hp > 0 and not motståndaren_attack == "sköld":
+    elif spelaren_attack == "svärd" and spelaren_chans > 50 and spelaren_hp > 0 and not motståndaren_attack == "sköld" or motståndaren_attack == "sköld" and motståndaren_sköld <= 0:
         slow_print(f"{spelaren} svänger sitt svärd mot {motståndaren}...")
         slow_print("Och missar!")
-    elif spelaren_attack == "svärd" and spelaren_chans <= 50 and spelaren_hp > 0 and motståndaren_attack == "sköld":
+    elif spelaren_attack == "svärd" and spelaren_chans <= 50 and spelaren_hp > 0 and motståndaren_attack == "sköld" and motståndaren_sköld > 0:
         slow_print(f"{spelaren} svänger sitt svärd mot {motståndaren}...")
         slow_print("Och träffar men den blir blockerad!")
-        slow_print(f"{motståndaren}s sköld skadas")
+        slow_print(f"{motståndaren}s sköld skadas.")
         motståndaren_sköld -= 1
-    elif spelaren_attack == "svärd" and spelaren_chans > 50 and spelaren_hp > 0 and motståndaren_attack == "sköld":
+    elif spelaren_attack == "svärd" and spelaren_chans > 50 and spelaren_hp > 0 and motståndaren_attack == "sköld" and motståndaren_sköld > 0:
         slow_print(f"{spelaren} svänger sitt svärd mot {motståndaren}...")
         slow_print("Och missar!")
-    if motståndaren_attack == "näve" and motståndaren_chans <= 80 and motståndaren_hp > 0 and not spelaren_attack == "sköld":
+        slow_print(f"{motståndaren} slår {spelaren} med skölden!")
+        spelaren_hp -= 1
+    elif spelaren_attack == "sköld" and spelaren_sköld <= 0 and not motståndaren_attack == "sköld":
+        slow_print(f"{spelaren} har ingen sköld.")
+    elif spelaren_attack == "sköld" and spelaren_sköld <= 0 and motståndaren_attack == "sköld" and motståndaren_sköld <= 0:
+        slow_print(f"{spelaren} har ingen sköld.")
+        slow_print(f"{motståndaren} slår {spelaren} med skölden!")
+    if motståndaren_attack == "näve" and motståndaren_chans <= 80 and motståndaren_hp > 0 and not spelaren_attack == "sköld" or spelaren_attack == "sköld" and spelaren_sköld <= 0:
         slow_print(f"{motståndaren} slår mot {spelaren}...")
         slow_print("Och träffar!")
         spelaren_hp -= 2
-    elif motståndaren_attack == "näve" and motståndaren_chans > 80 and motståndaren_hp > 0 and not spelaren_attack == "sköld":
+    elif motståndaren_attack == "näve" and motståndaren_chans > 80 and motståndaren_hp > 0 and not spelaren_attack == "sköld" or spelaren_attack == "sköld" and spelaren_sköld <= 0:
         slow_print(f"{motståndaren} slår mot {spelaren}...")
         slow_print("Och missar!")
-    elif motståndaren_attack == "näve" and motståndaren_chans <= 80 and motståndaren_hp > 0 and spelaren_attack == "sköld":
+    elif motståndaren_attack == "näve" and motståndaren_chans <= 80 and motståndaren_hp > 0 and spelaren_attack == "sköld" and spelaren_sköld > 0:
         slow_print(f"{motståndaren} slår mot {spelaren}...")
         slow_print("Och träffar men den blir blockerad!")
-    elif motståndaren_attack == "näve" and motståndaren_chans > 80 and motståndaren_hp > 0 and spelaren_attack == "sköld":
+    elif motståndaren_attack == "näve" and motståndaren_chans > 80 and motståndaren_hp > 0 and spelaren_attack == "sköld" and spelaren_sköld > 0:
         slow_print(f"{motståndaren} slår mot {spelaren}...")
         slow_print("Och missar!")
-    elif motståndaren_attack == "spark" and motståndaren_chans <= 65 and motståndaren_hp > 0 and not spelaren_attack == "sköld":
+        slow_print(f"{spelaren} slår {motståndaren} med skölden!")
+        motståndaren_hp -= 1
+    elif motståndaren_attack == "spark" and motståndaren_chans <= 65 and motståndaren_hp > 0 and not spelaren_attack == "sköld" or spelaren_attack == "sköld" and spelaren_sköld <= 0:
         slow_print(f"{motståndaren} sparkar mot {spelaren}...")
         slow_print("Och träffar!")
         spelaren_hp -= 3
-    elif motståndaren_attack == "spark" and motståndaren_chans > 65 and motståndaren_hp > 0 and not spelaren_attack == "sköld":
+    elif motståndaren_attack == "spark" and motståndaren_chans > 65 and motståndaren_hp > 0 and not spelaren_attack == "sköld" or spelaren_attack == "sköld" and spelaren_sköld <= 0:
         slow_print(f"{motståndaren} sparkar mot {spelaren}...")
         slow_print("Och missar!")
-    elif motståndaren_attack == "spark" and motståndaren_chans <= 65 and motståndaren_hp > 0 and spelaren_attack == "sköld":
+    elif motståndaren_attack == "spark" and motståndaren_chans <= 65 and motståndaren_hp > 0 and spelaren_attack == "sköld" and spelaren_sköld > 0:
         slow_print(f"{motståndaren} sparkar mot {spelaren}...")
         slow_print("Och träffar men den blir blockerad!")
-    elif motståndaren_attack == "spark" and motståndaren_chans > 65 and motståndaren_hp > 0 and spelaren_attack == "sköld":
+    elif motståndaren_attack == "spark" and motståndaren_chans > 65 and motståndaren_hp > 0 and spelaren_attack == "sköld" and spelaren_sköld > 0:
         slow_print(f"{motståndaren} sparkar mot {spelaren}...")
         slow_print("Och missar!")
-    elif motståndaren_attack == "svärd" and motståndaren_chans <= 50 and motståndaren_hp > 0 and not spelaren_attack == "sköld":
+        slow_print(f"{spelaren} slår {motståndaren} med skölden!")
+        motståndaren_hp -= 1
+    elif motståndaren_attack == "svärd" and motståndaren_chans <= 50 and motståndaren_hp > 0 and not spelaren_attack == "sköld" or spelaren_attack == "sköld" and spelaren_sköld <= 0:
         slow_print(f"{motståndaren} svänger sitt svärd mot {spelaren}...")
         slow_print("Och träffar!")
         spelaren_hp -= 5
-    elif motståndaren_attack == "svärd" and motståndaren_chans > 50 and motståndaren_hp > 0 and not spelaren_attack == "sköld":
+    elif motståndaren_attack == "svärd" and motståndaren_chans > 50 and motståndaren_hp > 0 and not spelaren_attack == "sköld" or spelaren_attack == "sköld" and spelaren_sköld <= 0:
         slow_print(f"{motståndaren} svänger sitt svärd mot {spelaren}...")
         slow_print("Och missar!")
-    elif motståndaren_attack == "svärd" and motståndaren_chans <= 50 and motståndaren_hp > 0 and spelaren_attack == "sköld":
+    elif motståndaren_attack == "svärd" and motståndaren_chans <= 50 and motståndaren_hp > 0 and spelaren_attack == "sköld" and spelaren_sköld > 0:
         slow_print(f"{motståndaren} svänger sitt svärd mot {spelaren}...")
         slow_print("Och träffar men den blir blockerad!")
-        slow_print(f"{spelaren}s sköld skadas")
+        slow_print(f"{spelaren}s sköld skadas.")
         spelaren_sköld -= 1
-    elif motståndaren_attack == "svärd" and motståndaren_chans > 50 and motståndaren_hp > 0 and spelaren_attack == "sköld":
+    elif motståndaren_attack == "svärd" and motståndaren_chans > 50 and motståndaren_hp > 0 and spelaren_attack == "sköld" and spelaren_sköld > 0:
         slow_print(f"{motståndaren} svänger sitt svärd mot {spelaren}...")
         slow_print("Och missar!")
-    if spelaren_sköld == 0:
+        slow_print(f"{spelaren} slår {motståndaren} med skölden!")
+        motståndaren_hp -= 1
+    elif motståndaren_attack == "sköld" and motståndaren_sköld <= 0 and not spelaren_attack == "sköld":
+        slow_print(f"{motståndaren} har ingen sköld.")
+    elif motståndaren_attack == "sköld" and motståndaren_sköld <= 0 and spelaren_attack == "sköld" and spelaren_sköld <= 0:
+        slow_print(f"{motståndaren} har ingen sköld.")
+        slow_print(f"{spelaren} slår {motståndaren} med skölden!")
+    if spelaren_attack == "sköld" and motståndaren_attack == "sköld" and spelaren_sköld > 0 and motståndaren_sköld > 0 and spelaren_hp > 0 and motståndaren_hp > 0:
+        slow_print(f"Både {spelaren} och {motståndaren} håller upp skölden.")
+    if spelaren_sköld <= 0 and spelaren_hp > 0 and spelaren_sköld_notis > 0:
         slow_print(f"{spelaren}s sköld går sönder!")
-    if motståndaren_sköld == 0:
+        spelaren_sköld_notis -= 1
+    if motståndaren_sköld <= 0 and motståndaren_hp > 0 and motståndaren_sköld_notis > 0:
         slow_print(f"{motståndaren}s sköld går sönder!")
         attacker.remove("sköld")
+        motståndaren_sköld_notis -= 1
     runda += 1
     if spelaren_hp <= 0 and motståndaren_hp > 0:
         slow_print(f"{spelaren} faller, {motståndaren} är segraren!")
