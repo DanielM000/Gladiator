@@ -18,6 +18,14 @@ spelaren_sköld = 3
 motståndaren_sköld = 3
 spelaren_sköld_notis = 1
 motståndaren_sköld_notis = 1
+slow_print("Vilken svårighetsgrad väljer du, lätt (20 hälsopoäng), medelsvår (15 hälsopoäng eller svår (10 hälsopoäng)?")
+svårighetsgrad = input()
+if svårighetsgrad == "medelsvår":
+    spelaren_hp = 15
+elif svårighetsgrad == "svår":
+    spelaren_hp = 10
+else:
+    spelaren_hp = 20
 runda = 1
 def visa_hp():
     slow_print(f"{spelaren} har just nu {spelaren_hp} hälsopoäng kvar.")
@@ -32,7 +40,7 @@ while strid == True:
     visa_hp()
     spelaren_chans = random.randint(1,100)
     motståndaren_chans = random.randint(1,100)
-    print("Vill du attackera med din näve (80% chans för 2 skada)\n eller med din spark (65% chans för 3 skada)\n eller med ditt svärd (50% chans för 5 skada)\n eller skydda dig själv med din sköld (går sönder efter 3 svärdsattacker, om motståndaren missar så slår du honom med 1 skada)?")
+    print("Vill attack väljer du?\n1.Din näve (80% chans för 2 skada)\n2.Din spark (65% chans för 3 skada)\n3.Ditt svärd (50% chans för 5 skada)\n4.Din sköld (går sönder efter 3 svärdsattacker,\nom motståndaren missar så slår du honom med 1 skada)")
     spelaren_attack = input()
     motståndaren_attack = random.choice(attacker)
     if spelaren_attack == "näve" and spelaren_chans <= 80 and spelaren_hp > 0 and not motståndaren_attack == "sköld" or motståndaren_attack == "sköld" and motståndaren_sköld <= 0:
@@ -87,6 +95,7 @@ while strid == True:
     elif spelaren_attack == "sköld" and spelaren_sköld <= 0 and motståndaren_attack == "sköld" and motståndaren_sköld <= 0:
         slow_print(f"{spelaren} har ingen sköld.")
         slow_print(f"{motståndaren} slår {spelaren} med skölden!")
+        spelaren_hp -= 1
     if motståndaren_attack == "näve" and motståndaren_chans <= 80 and motståndaren_hp > 0 and not spelaren_attack == "sköld" or spelaren_attack == "sköld" and spelaren_sköld <= 0:
         slow_print(f"{motståndaren} slår mot {spelaren}...")
         slow_print("Och träffar!")
@@ -139,6 +148,7 @@ while strid == True:
     elif motståndaren_attack == "sköld" and motståndaren_sköld <= 0 and spelaren_attack == "sköld" and spelaren_sköld <= 0:
         slow_print(f"{motståndaren} har ingen sköld.")
         slow_print(f"{spelaren} slår {motståndaren} med skölden!")
+        motståndaren_hp -= 1
     if spelaren_attack == "sköld" and motståndaren_attack == "sköld" and spelaren_sköld > 0 and motståndaren_sköld > 0 and spelaren_hp > 0 and motståndaren_hp > 0:
         slow_print(f"Både {spelaren} och {motståndaren} håller upp skölden.")
     if spelaren_sköld <= 0 and spelaren_hp > 0 and spelaren_sköld_notis > 0:
