@@ -12,6 +12,7 @@ spelaren = input()
 motståndarna = ["Spartacus", "Flamma", "Priscus", "Spiculus", "Tetraites", "Commodus", "Marcus", "Aurelius", "Decimus", "Gaius", "Maximus", "Verus", "Crixus", "Carpophorus", "Antonius", "Augustus"]
 motståndaren = random.choice(motståndarna)
 attacker = ["näve", "spark", "svärd", "sköld"]
+giltiga_val = ["1", "2", "3", "4"]
 spelaren_hp = 20
 motståndaren_hp = 20
 spelaren_sköld = 3
@@ -90,18 +91,12 @@ while strid == True:
         slow_print("Och missar!")
         slow_print(f"{motståndaren} slår {spelaren} med skölden!")
         spelaren_hp -= 1
-    elif spelaren_attack == "4" and spelaren_sköld <= 0 and not motståndaren_attack == "sköld":
-        slow_print(f"{spelaren} har ingen sköld.")
-    elif spelaren_attack == "4" and spelaren_sköld <= 0 and motståndaren_attack == "sköld" and motståndaren_sköld <= 0:
-        slow_print(f"{spelaren} har ingen sköld.")
-        slow_print(f"{motståndaren} slår {spelaren} med skölden!")
-        spelaren_hp -= 1
-    elif not spelaren_attack == "1" and not motståndaren_attack == "sköld" or not spelaren_attack == "2" and not motståndaren_attack == "sköld" or not spelaren_attack == "3" and not motståndaren_attack == "sköld" or not spelaren_attack == "4" and not motståndaren_attack == "sköld":
-        slow_print("Ogiltig val")
-    elif not spelaren_attack == "1" and motståndaren_attack == "sköld" and motståndaren_sköld > 0 or not spelaren_attack == "2" and motståndaren_attack == "sköld" and motståndaren_sköld > 0 or not spelaren_attack == "3" and motståndaren_attack == "sköld" and motståndaren_sköld > 0 or not spelaren_attack == "4" and motståndaren_attack == "sköld" and motståndaren_sköld > 0:
-        slow_print("Ogiltig val")
-        slow_print(f"{motståndaren} slår {spelaren} med skölden!")
-        spelaren_hp -= 1
+    if spelaren_attack not in giltiga_val:
+        slow_print("Ogiltigt val, försök igen.")
+        continue
+    elif spelaren_attack == "4" and spelaren_sköld <= 0:
+        slow_print("Din sköld är sönder, försök igen.")
+        continue
     if motståndaren_attack == "näve" and motståndaren_chans <= 80 and motståndaren_hp > 0 and not spelaren_attack == "4" or spelaren_attack == "4" and spelaren_sköld <= 0:
         slow_print(f"{motståndaren} slår mot {spelaren}...")
         slow_print("Och träffar!")
@@ -149,16 +144,11 @@ while strid == True:
         slow_print("Och missar!")
         slow_print(f"{spelaren} slår {motståndaren} med skölden!")
         motståndaren_hp -= 1
-    elif motståndaren_attack == "sköld" and motståndaren_sköld <= 0 and not spelaren_attack == "4":
-        slow_print(f"{motståndaren} har ingen sköld.")
-    elif motståndaren_attack == "sköld" and motståndaren_sköld <= 0 and spelaren_attack == "4" and spelaren_sköld <= 0:
-        slow_print(f"{motståndaren} har ingen sköld.")
-        slow_print(f"{spelaren} slår {motståndaren} med skölden!")
-        motståndaren_hp -= 1
     if spelaren_attack == "4" and motståndaren_attack == "sköld" and spelaren_sköld > 0 and motståndaren_sköld > 0 and spelaren_hp > 0 and motståndaren_hp > 0:
         slow_print(f"Både {spelaren} och {motståndaren} håller upp skölden.")
     if spelaren_sköld <= 0 and spelaren_hp > 0 and spelaren_sköld_notis > 0:
         slow_print(f"{spelaren}s sköld går sönder!")
+        giltiga_val.remove("4")
         spelaren_sköld_notis -= 1
     if motståndaren_sköld <= 0 and motståndaren_hp > 0 and motståndaren_sköld_notis > 0:
         slow_print(f"{motståndaren}s sköld går sönder!")
